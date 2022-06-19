@@ -1,6 +1,7 @@
 package test
 
 import (
+	"context"
 	"testing"
 
 	"github.com/apache/thrift/lib/go/thrift"
@@ -11,16 +12,17 @@ import (
 
 func Test_skip_list_of_list(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.Combinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteListBegin(thrift.LIST, 2)
-		proto.WriteListBegin(thrift.I64, 1)
-		proto.WriteI64(1)
-		proto.WriteListEnd()
-		proto.WriteListBegin(thrift.I64, 1)
-		proto.WriteI64(2)
-		proto.WriteListEnd()
-		proto.WriteListEnd()
+		proto.WriteListBegin(ctx, thrift.LIST, 2)
+		proto.WriteListBegin(ctx, thrift.I64, 1)
+		proto.WriteI64(ctx, 1)
+		proto.WriteListEnd(ctx)
+		proto.WriteListBegin(ctx, thrift.I64, 1)
+		proto.WriteI64(ctx, 2)
+		proto.WriteListEnd(ctx)
+		proto.WriteListEnd(ctx)
 		iter := c.CreateIterator(buf.Bytes())
 		should.Equal(buf.Bytes(), iter.SkipList(nil))
 	}
@@ -28,16 +30,17 @@ func Test_skip_list_of_list(t *testing.T) {
 
 func Test_unmarshal_general_list_of_list(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.Combinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteListBegin(thrift.LIST, 2)
-		proto.WriteListBegin(thrift.I64, 1)
-		proto.WriteI64(1)
-		proto.WriteListEnd()
-		proto.WriteListBegin(thrift.I64, 1)
-		proto.WriteI64(2)
-		proto.WriteListEnd()
-		proto.WriteListEnd()
+		proto.WriteListBegin(ctx, thrift.LIST, 2)
+		proto.WriteListBegin(ctx, thrift.I64, 1)
+		proto.WriteI64(ctx, 1)
+		proto.WriteListEnd(ctx)
+		proto.WriteListBegin(ctx, thrift.I64, 1)
+		proto.WriteI64(ctx, 2)
+		proto.WriteListEnd(ctx)
+		proto.WriteListEnd(ctx)
 		var val general.List
 		should.NoError(c.Unmarshal(buf.Bytes(), &val))
 		should.Equal(general.List{int64(1)}, val[0])
@@ -46,16 +49,17 @@ func Test_unmarshal_general_list_of_list(t *testing.T) {
 
 func Test_unmarshal_list_of_general_list(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.UnmarshalCombinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteListBegin(thrift.LIST, 2)
-		proto.WriteListBegin(thrift.I64, 1)
-		proto.WriteI64(1)
-		proto.WriteListEnd()
-		proto.WriteListBegin(thrift.I64, 1)
-		proto.WriteI64(2)
-		proto.WriteListEnd()
-		proto.WriteListEnd()
+		proto.WriteListBegin(ctx, thrift.LIST, 2)
+		proto.WriteListBegin(ctx, thrift.I64, 1)
+		proto.WriteI64(ctx, 1)
+		proto.WriteListEnd(ctx)
+		proto.WriteListBegin(ctx, thrift.I64, 1)
+		proto.WriteI64(ctx, 2)
+		proto.WriteListEnd(ctx)
+		proto.WriteListEnd(ctx)
 		var val []general.List
 		should.NoError(c.Unmarshal(buf.Bytes(), &val))
 		should.Equal(general.List{int64(1)}, val[0])
@@ -64,16 +68,17 @@ func Test_unmarshal_list_of_general_list(t *testing.T) {
 
 func Test_unmarshal_list_of_list(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.UnmarshalCombinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteListBegin(thrift.LIST, 2)
-		proto.WriteListBegin(thrift.I64, 1)
-		proto.WriteI64(1)
-		proto.WriteListEnd()
-		proto.WriteListBegin(thrift.I64, 1)
-		proto.WriteI64(2)
-		proto.WriteListEnd()
-		proto.WriteListEnd()
+		proto.WriteListBegin(ctx, thrift.LIST, 2)
+		proto.WriteListBegin(ctx, thrift.I64, 1)
+		proto.WriteI64(ctx, 1)
+		proto.WriteListEnd(ctx)
+		proto.WriteListBegin(ctx, thrift.I64, 1)
+		proto.WriteI64(ctx, 2)
+		proto.WriteListEnd(ctx)
+		proto.WriteListEnd(ctx)
 		var val [][]int64
 		should.NoError(c.Unmarshal(buf.Bytes(), &val))
 		should.Equal([][]int64{

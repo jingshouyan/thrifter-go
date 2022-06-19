@@ -1,6 +1,7 @@
 package test
 
 import (
+	"context"
 	"testing"
 
 	"github.com/apache/thrift/lib/go/thrift"
@@ -13,14 +14,15 @@ import (
 
 func Test_skip_struct_of_string(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.Combinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteStructBegin("hello")
-		proto.WriteFieldBegin("field1", thrift.STRING, 1)
-		proto.WriteString("abc")
-		proto.WriteFieldEnd()
-		proto.WriteFieldStop()
-		proto.WriteStructEnd()
+		proto.WriteStructBegin(ctx, "hello")
+		proto.WriteFieldBegin(ctx, "field1", thrift.STRING, 1)
+		proto.WriteString(ctx, "abc")
+		proto.WriteFieldEnd(ctx)
+		proto.WriteFieldStop(ctx)
+		proto.WriteStructEnd(ctx)
 		iter := c.CreateIterator(buf.Bytes())
 		should.Equal(buf.Bytes(), iter.SkipStruct(nil))
 	}
@@ -28,14 +30,15 @@ func Test_skip_struct_of_string(t *testing.T) {
 
 func Test_unmarshal_general_struct_of_string(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.Combinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteStructBegin("hello")
-		proto.WriteFieldBegin("field1", thrift.STRING, 1)
-		proto.WriteString("abc")
-		proto.WriteFieldEnd()
-		proto.WriteFieldStop()
-		proto.WriteStructEnd()
+		proto.WriteStructBegin(ctx, "hello")
+		proto.WriteFieldBegin(ctx, "field1", thrift.STRING, 1)
+		proto.WriteString(ctx, "abc")
+		proto.WriteFieldEnd(ctx)
+		proto.WriteFieldStop(ctx)
+		proto.WriteStructEnd(ctx)
 		var val general.Struct
 		should.NoError(c.Unmarshal(buf.Bytes(), &val))
 		should.Equal("abc", val[protocol.FieldId(1)])
@@ -44,14 +47,15 @@ func Test_unmarshal_general_struct_of_string(t *testing.T) {
 
 func Test_unmarshal_struct_of_string(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.UnmarshalCombinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteStructBegin("hello")
-		proto.WriteFieldBegin("field1", thrift.STRING, 1)
-		proto.WriteString("abc")
-		proto.WriteFieldEnd()
-		proto.WriteFieldStop()
-		proto.WriteStructEnd()
+		proto.WriteStructBegin(ctx, "hello")
+		proto.WriteFieldBegin(ctx, "field1", thrift.STRING, 1)
+		proto.WriteString(ctx, "abc")
+		proto.WriteFieldEnd(ctx)
+		proto.WriteFieldStop(ctx)
+		proto.WriteStructEnd(ctx)
 		var val struct_of_string_test.TestObject
 		should.NoError(c.Unmarshal(buf.Bytes(), &val))
 		should.Equal(struct_of_string_test.TestObject{

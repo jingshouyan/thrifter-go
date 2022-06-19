@@ -1,6 +1,7 @@
 package test
 
 import (
+	"context"
 	"testing"
 
 	"github.com/apache/thrift/lib/go/thrift"
@@ -12,18 +13,19 @@ import (
 
 func Test_skip_message(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.Combinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteMessageBegin("hello", thrift.CALL, 17)
-		proto.WriteStructBegin("args")
-		proto.WriteFieldBegin("field1", thrift.I64, 1)
-		proto.WriteI64(1)
-		proto.WriteFieldBegin("field2", thrift.I64, 2)
-		proto.WriteI64(2)
-		proto.WriteFieldEnd()
-		proto.WriteFieldStop()
-		proto.WriteStructEnd()
-		proto.WriteMessageEnd()
+		proto.WriteMessageBegin(ctx, "hello", thrift.CALL, 17)
+		proto.WriteStructBegin(ctx, "args")
+		proto.WriteFieldBegin(ctx, "field1", thrift.I64, 1)
+		proto.WriteI64(ctx, 1)
+		proto.WriteFieldBegin(ctx, "field2", thrift.I64, 2)
+		proto.WriteI64(ctx, 2)
+		proto.WriteFieldEnd(ctx)
+		proto.WriteFieldStop(ctx)
+		proto.WriteStructEnd(ctx)
+		proto.WriteMessageEnd(ctx)
 		iter := c.CreateIterator(buf.Bytes())
 		should.Equal(buf.Bytes(), iter.SkipStruct(iter.SkipMessageHeader(nil)))
 	}
@@ -31,18 +33,19 @@ func Test_skip_message(t *testing.T) {
 
 func Test_unmarshal_message(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.Combinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteMessageBegin("hello", thrift.CALL, 17)
-		proto.WriteStructBegin("args")
-		proto.WriteFieldBegin("field1", thrift.I64, 1)
-		proto.WriteI64(1)
-		proto.WriteFieldBegin("field2", thrift.I64, 2)
-		proto.WriteI64(2)
-		proto.WriteFieldEnd()
-		proto.WriteFieldStop()
-		proto.WriteStructEnd()
-		proto.WriteMessageEnd()
+		proto.WriteMessageBegin(ctx, "hello", thrift.CALL, 17)
+		proto.WriteStructBegin(ctx, "args")
+		proto.WriteFieldBegin(ctx, "field1", thrift.I64, 1)
+		proto.WriteI64(ctx, 1)
+		proto.WriteFieldBegin(ctx, "field2", thrift.I64, 2)
+		proto.WriteI64(ctx, 2)
+		proto.WriteFieldEnd(ctx)
+		proto.WriteFieldStop(ctx)
+		proto.WriteStructEnd(ctx)
+		proto.WriteMessageEnd(ctx)
 		var msg general.Message
 		should.NoError(c.Unmarshal(buf.Bytes(), &msg))
 		should.Equal("hello", msg.MessageName)

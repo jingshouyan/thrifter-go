@@ -1,6 +1,7 @@
 package test
 
 import (
+	"context"
 	"testing"
 
 	"github.com/apache/thrift/lib/go/thrift"
@@ -11,14 +12,15 @@ import (
 
 func Test_unmarshal_struct_of_1_ptr(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.UnmarshalCombinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteStructBegin("hello")
-		proto.WriteFieldBegin("field1", thrift.I64, 1)
-		proto.WriteI64(1)
-		proto.WriteFieldEnd()
-		proto.WriteFieldStop()
-		proto.WriteStructEnd()
+		proto.WriteStructBegin(ctx, "hello")
+		proto.WriteFieldBegin(ctx, "field1", thrift.I64, 1)
+		proto.WriteI64(ctx, 1)
+		proto.WriteFieldEnd(ctx)
+		proto.WriteFieldStop(ctx)
+		proto.WriteStructEnd(ctx)
 		var val *struct_of_pointer_test.StructOf1Ptr
 		should.NoError(c.Unmarshal(buf.Bytes(), &val))
 		should.Equal(1, *val.Field1)
@@ -27,17 +29,18 @@ func Test_unmarshal_struct_of_1_ptr(t *testing.T) {
 
 func Test_unmarshal_struct_of_2_ptr(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.UnmarshalCombinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteStructBegin("hello")
-		proto.WriteFieldBegin("field1", thrift.I64, 1)
-		proto.WriteI64(1)
-		proto.WriteFieldEnd()
-		proto.WriteFieldBegin("field2", thrift.I64, 2)
-		proto.WriteI64(2)
-		proto.WriteFieldEnd()
-		proto.WriteFieldStop()
-		proto.WriteStructEnd()
+		proto.WriteStructBegin(ctx, "hello")
+		proto.WriteFieldBegin(ctx, "field1", thrift.I64, 1)
+		proto.WriteI64(ctx, 1)
+		proto.WriteFieldEnd(ctx)
+		proto.WriteFieldBegin(ctx, "field2", thrift.I64, 2)
+		proto.WriteI64(ctx, 2)
+		proto.WriteFieldEnd(ctx)
+		proto.WriteFieldStop(ctx)
+		proto.WriteStructEnd(ctx)
 		var val *struct_of_pointer_test.StructOf2Ptr
 		should.NoError(c.Unmarshal(buf.Bytes(), &val))
 		should.Equal(1, *val.Field1)

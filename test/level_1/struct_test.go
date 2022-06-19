@@ -1,6 +1,7 @@
 package test
 
 import (
+	"context"
 	"testing"
 
 	"github.com/apache/thrift/lib/go/thrift"
@@ -14,14 +15,15 @@ import (
 
 func Test_decode_struct_by_iterator(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.Combinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteStructBegin("hello")
-		proto.WriteFieldBegin("field1", thrift.I64, 1)
-		proto.WriteI64(1024)
-		proto.WriteFieldEnd()
-		proto.WriteFieldStop()
-		proto.WriteStructEnd()
+		proto.WriteStructBegin(ctx, "hello")
+		proto.WriteFieldBegin(ctx, "field1", thrift.I64, 1)
+		proto.WriteI64(ctx, 1024)
+		proto.WriteFieldEnd(ctx)
+		proto.WriteFieldStop(ctx)
+		proto.WriteStructEnd(ctx)
 		iter := c.CreateIterator(buf.Bytes())
 		called := false
 		iter.ReadStructHeader()
@@ -43,14 +45,15 @@ func Test_decode_struct_by_iterator(t *testing.T) {
 
 func Test_decode_struct_with_bool_by_iterator(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.Combinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteStructBegin("hello")
-		proto.WriteFieldBegin("field1", thrift.BOOL, 1)
-		proto.WriteBool(true)
-		proto.WriteFieldEnd()
-		proto.WriteFieldStop()
-		proto.WriteStructEnd()
+		proto.WriteStructBegin(ctx, "hello")
+		proto.WriteFieldBegin(ctx, "field1", thrift.BOOL, 1)
+		proto.WriteBool(ctx, true)
+		proto.WriteFieldEnd(ctx)
+		proto.WriteFieldStop(ctx)
+		proto.WriteStructEnd(ctx)
 		iter := c.CreateIterator(buf.Bytes())
 		called := false
 		iter.ReadStructHeader()
@@ -122,14 +125,15 @@ func Test_encode_struct_with_bool_by_stream(t *testing.T) {
 
 func Test_skip_struct(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.Combinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteStructBegin("hello")
-		proto.WriteFieldBegin("field1", thrift.I64, 1)
-		proto.WriteI64(1024)
-		proto.WriteFieldEnd()
-		proto.WriteFieldStop()
-		proto.WriteStructEnd()
+		proto.WriteStructBegin(ctx, "hello")
+		proto.WriteFieldBegin(ctx, "field1", thrift.I64, 1)
+		proto.WriteI64(ctx, 1024)
+		proto.WriteFieldEnd(ctx)
+		proto.WriteFieldStop(ctx)
+		proto.WriteStructEnd(ctx)
 		iter := c.CreateIterator(buf.Bytes())
 		should.Equal(buf.Bytes(), iter.SkipStruct(nil))
 	}
@@ -137,14 +141,15 @@ func Test_skip_struct(t *testing.T) {
 
 func Test_unmarshal_general_struct(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.Combinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteStructBegin("hello")
-		proto.WriteFieldBegin("field1", thrift.I64, 1)
-		proto.WriteI64(1024)
-		proto.WriteFieldEnd()
-		proto.WriteFieldStop()
-		proto.WriteStructEnd()
+		proto.WriteStructBegin(ctx, "hello")
+		proto.WriteFieldBegin(ctx, "field1", thrift.I64, 1)
+		proto.WriteI64(ctx, 1024)
+		proto.WriteFieldEnd(ctx)
+		proto.WriteFieldStop(ctx)
+		proto.WriteStructEnd(ctx)
 		var val general.Struct
 		should.NoError(c.Unmarshal(buf.Bytes(), &val))
 		should.Equal(general.Struct{
@@ -155,14 +160,15 @@ func Test_unmarshal_general_struct(t *testing.T) {
 
 func Test_unmarshal_raw_struct(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.Combinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteStructBegin("hello")
-		proto.WriteFieldBegin("field1", thrift.I64, 1)
-		proto.WriteI64(1024)
-		proto.WriteFieldEnd()
-		proto.WriteFieldStop()
-		proto.WriteStructEnd()
+		proto.WriteStructBegin(ctx, "hello")
+		proto.WriteFieldBegin(ctx, "field1", thrift.I64, 1)
+		proto.WriteI64(ctx, 1024)
+		proto.WriteFieldEnd(ctx)
+		proto.WriteFieldStop(ctx)
+		proto.WriteStructEnd(ctx)
 		var val raw.Struct
 		should.NoError(c.Unmarshal(buf.Bytes(), &val))
 		should.Equal(1, len(val))
@@ -172,14 +178,15 @@ func Test_unmarshal_raw_struct(t *testing.T) {
 
 func Test_unmarshal_struct(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.UnmarshalCombinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteStructBegin("hello")
-		proto.WriteFieldBegin("field1", thrift.I64, 1)
-		proto.WriteI64(1024)
-		proto.WriteFieldEnd()
-		proto.WriteFieldStop()
-		proto.WriteStructEnd()
+		proto.WriteStructBegin(ctx, "hello")
+		proto.WriteFieldBegin(ctx, "field1", thrift.I64, 1)
+		proto.WriteI64(ctx, 1024)
+		proto.WriteFieldEnd(ctx)
+		proto.WriteFieldStop(ctx)
+		proto.WriteStructEnd(ctx)
 		var val struct_test.TestObject
 		should.NoError(c.Unmarshal(buf.Bytes(), &val))
 		should.Equal(struct_test.TestObject{1024}, val)
@@ -203,14 +210,15 @@ func Test_marshal_general_struct(t *testing.T) {
 
 func Test_marshal_raw_struct(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.Combinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteStructBegin("hello")
-		proto.WriteFieldBegin("field1", thrift.I64, 1)
-		proto.WriteI64(1024)
-		proto.WriteFieldEnd()
-		proto.WriteFieldStop()
-		proto.WriteStructEnd()
+		proto.WriteStructBegin(ctx, "hello")
+		proto.WriteFieldBegin(ctx, "field1", thrift.I64, 1)
+		proto.WriteI64(ctx, 1024)
+		proto.WriteFieldEnd(ctx)
+		proto.WriteFieldStop(ctx)
+		proto.WriteStructEnd(ctx)
 		var val raw.Struct
 		should.NoError(c.Unmarshal(buf.Bytes(), &val))
 		output, err := c.Marshal(val)

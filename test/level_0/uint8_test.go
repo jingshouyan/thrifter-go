@@ -1,6 +1,7 @@
 package test
 
 import (
+	"context"
 	"testing"
 
 	"github.com/jingshouyan/thrifter-go/test"
@@ -9,9 +10,10 @@ import (
 
 func Test_decode_uint8(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.Combinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteByte(100)
+		proto.WriteByte(ctx, 100)
 		iter := c.CreateIterator(buf.Bytes())
 		should.Equal(uint8(100), iter.ReadUint8())
 	}
@@ -19,9 +21,10 @@ func Test_decode_uint8(t *testing.T) {
 
 func Test_unmarshal_uint8(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.UnmarshalCombinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteByte(100)
+		proto.WriteByte(ctx, 100)
 		var val uint8
 		should.NoError(c.Unmarshal(buf.Bytes(), &val))
 		should.Equal(uint8(100), val)

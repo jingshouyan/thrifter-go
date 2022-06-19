@@ -1,6 +1,7 @@
 package test
 
 import (
+	"context"
 	"testing"
 
 	"github.com/apache/thrift/lib/go/thrift"
@@ -11,13 +12,14 @@ import (
 
 func Test_skip_list_of_string(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.Combinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteListBegin(thrift.STRING, 3)
-		proto.WriteString("a")
-		proto.WriteString("b")
-		proto.WriteString("c")
-		proto.WriteListEnd()
+		proto.WriteListBegin(ctx, thrift.STRING, 3)
+		proto.WriteString(ctx, "a")
+		proto.WriteString(ctx, "b")
+		proto.WriteString(ctx, "c")
+		proto.WriteListEnd(ctx)
 		iter := c.CreateIterator(buf.Bytes())
 		should.Equal(buf.Bytes(), iter.SkipList(nil))
 	}
@@ -25,13 +27,14 @@ func Test_skip_list_of_string(t *testing.T) {
 
 func Test_unmarshal_general_list_of_string(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.Combinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteListBegin(thrift.STRING, 3)
-		proto.WriteString("a")
-		proto.WriteString("b")
-		proto.WriteString("c")
-		proto.WriteListEnd()
+		proto.WriteListBegin(ctx, thrift.STRING, 3)
+		proto.WriteString(ctx, "a")
+		proto.WriteString(ctx, "b")
+		proto.WriteString(ctx, "c")
+		proto.WriteListEnd(ctx)
 		var val general.List
 		should.NoError(c.Unmarshal(buf.Bytes(), &val))
 		should.Equal(general.List{"a", "b", "c"}, val)
@@ -40,13 +43,14 @@ func Test_unmarshal_general_list_of_string(t *testing.T) {
 
 func Test_unmarshal_list_of_string(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.UnmarshalCombinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteListBegin(thrift.STRING, 3)
-		proto.WriteString("a")
-		proto.WriteString("b")
-		proto.WriteString("c")
-		proto.WriteListEnd()
+		proto.WriteListBegin(ctx, thrift.STRING, 3)
+		proto.WriteString(ctx, "a")
+		proto.WriteString(ctx, "b")
+		proto.WriteString(ctx, "c")
+		proto.WriteListEnd(ctx)
 		var val []string
 		should.NoError(c.Unmarshal(buf.Bytes(), &val))
 		should.Equal([]string{

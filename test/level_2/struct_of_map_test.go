@@ -1,6 +1,7 @@
 package test
 
 import (
+	"context"
 	"testing"
 
 	"github.com/apache/thrift/lib/go/thrift"
@@ -13,17 +14,18 @@ import (
 
 func Test_skip_struct_of_map(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.Combinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteStructBegin("hello")
-		proto.WriteFieldBegin("field1", thrift.MAP, 1)
-		proto.WriteMapBegin(thrift.I32, thrift.I64, 1)
-		proto.WriteI32(2)
-		proto.WriteI64(2)
-		proto.WriteMapEnd()
-		proto.WriteFieldEnd()
-		proto.WriteFieldStop()
-		proto.WriteStructEnd()
+		proto.WriteStructBegin(ctx, "hello")
+		proto.WriteFieldBegin(ctx, "field1", thrift.MAP, 1)
+		proto.WriteMapBegin(ctx, thrift.I32, thrift.I64, 1)
+		proto.WriteI32(ctx, 2)
+		proto.WriteI64(ctx, 2)
+		proto.WriteMapEnd(ctx)
+		proto.WriteFieldEnd(ctx)
+		proto.WriteFieldStop(ctx)
+		proto.WriteStructEnd(ctx)
 		iter := c.CreateIterator(buf.Bytes())
 		should.Equal(buf.Bytes(), iter.SkipStruct(nil))
 	}
@@ -31,17 +33,18 @@ func Test_skip_struct_of_map(t *testing.T) {
 
 func Test_unmarshal_general_struct_of_map(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.Combinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteStructBegin("hello")
-		proto.WriteFieldBegin("field1", thrift.MAP, 1)
-		proto.WriteMapBegin(thrift.I32, thrift.I64, 1)
-		proto.WriteI32(2)
-		proto.WriteI64(2)
-		proto.WriteMapEnd()
-		proto.WriteFieldEnd()
-		proto.WriteFieldStop()
-		proto.WriteStructEnd()
+		proto.WriteStructBegin(ctx, "hello")
+		proto.WriteFieldBegin(ctx, "field1", thrift.MAP, 1)
+		proto.WriteMapBegin(ctx, thrift.I32, thrift.I64, 1)
+		proto.WriteI32(ctx, 2)
+		proto.WriteI64(ctx, 2)
+		proto.WriteMapEnd(ctx)
+		proto.WriteFieldEnd(ctx)
+		proto.WriteFieldStop(ctx)
+		proto.WriteStructEnd(ctx)
 		var val general.Struct
 		should.NoError(c.Unmarshal(buf.Bytes(), &val))
 		should.Equal(general.Map{
@@ -52,17 +55,18 @@ func Test_unmarshal_general_struct_of_map(t *testing.T) {
 
 func Test_unmarshal_struct_of_map(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.UnmarshalCombinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteStructBegin("hello")
-		proto.WriteFieldBegin("field1", thrift.MAP, 1)
-		proto.WriteMapBegin(thrift.I32, thrift.I64, 1)
-		proto.WriteI32(2)
-		proto.WriteI64(2)
-		proto.WriteMapEnd()
-		proto.WriteFieldEnd()
-		proto.WriteFieldStop()
-		proto.WriteStructEnd()
+		proto.WriteStructBegin(ctx, "hello")
+		proto.WriteFieldBegin(ctx, "field1", thrift.MAP, 1)
+		proto.WriteMapBegin(ctx, thrift.I32, thrift.I64, 1)
+		proto.WriteI32(ctx, 2)
+		proto.WriteI64(ctx, 2)
+		proto.WriteMapEnd(ctx)
+		proto.WriteFieldEnd(ctx)
+		proto.WriteFieldStop(ctx)
+		proto.WriteStructEnd(ctx)
 		var val struct_of_map_test.TestObject
 		should.NoError(c.Unmarshal(buf.Bytes(), &val))
 		should.Equal(struct_of_map_test.TestObject{

@@ -1,6 +1,7 @@
 package test
 
 import (
+	"context"
 	"testing"
 
 	"github.com/jingshouyan/thrifter-go/test"
@@ -10,9 +11,10 @@ import (
 
 func Test_unmarshal_enum(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.UnmarshalCombinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteI32(1)
+		proto.WriteI32(ctx, 1)
 		var val enum_test.Player
 		should.NoError(c.Unmarshal(buf.Bytes(), &val))
 		should.Equal(enum_test.Player_FLASH, val)

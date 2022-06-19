@@ -1,6 +1,7 @@
 package test
 
 import (
+	"context"
 	"testing"
 
 	"github.com/jingshouyan/thrifter-go/test"
@@ -9,10 +10,11 @@ import (
 
 func Test_unmarshal_ptr_int64(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.UnmarshalCombinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteI64(2)
-		proto.WriteListEnd()
+		proto.WriteI64(ctx, 2)
+		proto.WriteListEnd(ctx)
 		var val *int64
 		should.NoError(c.Unmarshal(buf.Bytes(), &val))
 		should.Equal(int64(2), *val)

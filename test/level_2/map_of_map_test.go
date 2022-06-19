@@ -1,6 +1,7 @@
 package test
 
 import (
+	"context"
 	"testing"
 
 	"github.com/apache/thrift/lib/go/thrift"
@@ -11,17 +12,18 @@ import (
 
 func Test_skip_map_of_map(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.Combinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteMapBegin(thrift.I64, thrift.MAP, 1)
-		proto.WriteI64(1)
+		proto.WriteMapBegin(ctx, thrift.I64, thrift.MAP, 1)
+		proto.WriteI64(ctx, 1)
 
-		proto.WriteMapBegin(thrift.STRING, thrift.I64, 1)
-		proto.WriteString("k1")
-		proto.WriteI64(1)
-		proto.WriteMapEnd()
+		proto.WriteMapBegin(ctx, thrift.STRING, thrift.I64, 1)
+		proto.WriteString(ctx, "k1")
+		proto.WriteI64(ctx, 1)
+		proto.WriteMapEnd(ctx)
 
-		proto.WriteMapEnd()
+		proto.WriteMapEnd(ctx)
 		iter := c.CreateIterator(buf.Bytes())
 		should.Equal(buf.Bytes(), iter.SkipMap(nil))
 	}
@@ -29,17 +31,18 @@ func Test_skip_map_of_map(t *testing.T) {
 
 func Test_unmarshal_general_map_of_map(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.Combinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteMapBegin(thrift.I64, thrift.MAP, 1)
-		proto.WriteI64(1)
+		proto.WriteMapBegin(ctx, thrift.I64, thrift.MAP, 1)
+		proto.WriteI64(ctx, 1)
 
-		proto.WriteMapBegin(thrift.STRING, thrift.I64, 1)
-		proto.WriteString("k1")
-		proto.WriteI64(1)
-		proto.WriteMapEnd()
+		proto.WriteMapBegin(ctx, thrift.STRING, thrift.I64, 1)
+		proto.WriteString(ctx, "k1")
+		proto.WriteI64(ctx, 1)
+		proto.WriteMapEnd(ctx)
 
-		proto.WriteMapEnd()
+		proto.WriteMapEnd(ctx)
 		var val general.Map
 		should.NoError(c.Unmarshal(buf.Bytes(), &val))
 		should.Equal(general.Map{

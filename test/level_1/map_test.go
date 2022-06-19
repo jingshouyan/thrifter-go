@@ -1,6 +1,7 @@
 package test
 
 import (
+	"context"
 	"testing"
 
 	"github.com/apache/thrift/lib/go/thrift"
@@ -13,16 +14,17 @@ import (
 
 func Test_decode_map_by_iterator(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.Combinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteMapBegin(thrift.STRING, thrift.I64, 3)
-		proto.WriteString("k1")
-		proto.WriteI64(1)
-		proto.WriteString("k2")
-		proto.WriteI64(2)
-		proto.WriteString("k3")
-		proto.WriteI64(3)
-		proto.WriteMapEnd()
+		proto.WriteMapBegin(ctx, thrift.STRING, thrift.I64, 3)
+		proto.WriteString(ctx, "k1")
+		proto.WriteI64(ctx, 1)
+		proto.WriteString(ctx, "k2")
+		proto.WriteI64(ctx, 2)
+		proto.WriteString(ctx, "k3")
+		proto.WriteI64(ctx, 3)
+		proto.WriteMapEnd(ctx)
 		iter := c.CreateIterator(buf.Bytes())
 		keyType, elemType, length := iter.ReadMapHeader()
 		should.Equal(protocol.TypeString, keyType)
@@ -64,16 +66,17 @@ func Test_encode_map_by_stream(t *testing.T) {
 
 func Test_skip_map(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.Combinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteMapBegin(thrift.I32, thrift.I64, 3)
-		proto.WriteI32(1)
-		proto.WriteI64(1)
-		proto.WriteI32(2)
-		proto.WriteI64(2)
-		proto.WriteI32(3)
-		proto.WriteI64(3)
-		proto.WriteMapEnd()
+		proto.WriteMapBegin(ctx, thrift.I32, thrift.I64, 3)
+		proto.WriteI32(ctx, 1)
+		proto.WriteI64(ctx, 1)
+		proto.WriteI32(ctx, 2)
+		proto.WriteI64(ctx, 2)
+		proto.WriteI32(ctx, 3)
+		proto.WriteI64(ctx, 3)
+		proto.WriteMapEnd(ctx)
 		iter := c.CreateIterator(buf.Bytes())
 		should.Equal(buf.Bytes(), iter.SkipMap(nil))
 	}
@@ -81,16 +84,17 @@ func Test_skip_map(t *testing.T) {
 
 func Test_unmarshal_general_map(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.Combinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteMapBegin(thrift.I32, thrift.I64, 3)
-		proto.WriteI32(1)
-		proto.WriteI64(1)
-		proto.WriteI32(2)
-		proto.WriteI64(2)
-		proto.WriteI32(3)
-		proto.WriteI64(3)
-		proto.WriteMapEnd()
+		proto.WriteMapBegin(ctx, thrift.I32, thrift.I64, 3)
+		proto.WriteI32(ctx, 1)
+		proto.WriteI64(ctx, 1)
+		proto.WriteI32(ctx, 2)
+		proto.WriteI64(ctx, 2)
+		proto.WriteI32(ctx, 3)
+		proto.WriteI64(ctx, 3)
+		proto.WriteMapEnd(ctx)
 		var val general.Map
 		should.NoError(c.Unmarshal(buf.Bytes(), &val))
 		should.Equal(general.Map{
@@ -103,16 +107,17 @@ func Test_unmarshal_general_map(t *testing.T) {
 
 func Test_unmarshal_raw_map(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.Combinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteMapBegin(thrift.I32, thrift.I64, 3)
-		proto.WriteI32(1)
-		proto.WriteI64(1)
-		proto.WriteI32(2)
-		proto.WriteI64(2)
-		proto.WriteI32(3)
-		proto.WriteI64(3)
-		proto.WriteMapEnd()
+		proto.WriteMapBegin(ctx, thrift.I32, thrift.I64, 3)
+		proto.WriteI32(ctx, 1)
+		proto.WriteI64(ctx, 1)
+		proto.WriteI32(ctx, 2)
+		proto.WriteI64(ctx, 2)
+		proto.WriteI32(ctx, 3)
+		proto.WriteI64(ctx, 3)
+		proto.WriteMapEnd(ctx)
 		var val raw.Map
 		should.NoError(c.Unmarshal(buf.Bytes(), &val))
 		should.Equal(3, len(val.Entries))
@@ -125,16 +130,17 @@ func Test_unmarshal_raw_map(t *testing.T) {
 
 func Test_unmarshal_map(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.UnmarshalCombinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteMapBegin(thrift.I32, thrift.I64, 3)
-		proto.WriteI32(1)
-		proto.WriteI64(1)
-		proto.WriteI32(2)
-		proto.WriteI64(2)
-		proto.WriteI32(3)
-		proto.WriteI64(3)
-		proto.WriteMapEnd()
+		proto.WriteMapBegin(ctx, thrift.I32, thrift.I64, 3)
+		proto.WriteI32(ctx, 1)
+		proto.WriteI64(ctx, 1)
+		proto.WriteI32(ctx, 2)
+		proto.WriteI64(ctx, 2)
+		proto.WriteI32(ctx, 3)
+		proto.WriteI64(ctx, 3)
+		proto.WriteMapEnd(ctx)
 		val := map[int32]int64{}
 		should.NoError(c.Unmarshal(buf.Bytes(), &val))
 		should.Equal(map[int32]int64{
@@ -172,16 +178,17 @@ func Test_marshal_general_map(t *testing.T) {
 
 func Test_marshal_raw_map(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.Combinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteMapBegin(thrift.I32, thrift.I64, 3)
-		proto.WriteI32(1)
-		proto.WriteI64(1)
-		proto.WriteI32(2)
-		proto.WriteI64(2)
-		proto.WriteI32(3)
-		proto.WriteI64(3)
-		proto.WriteMapEnd()
+		proto.WriteMapBegin(ctx, thrift.I32, thrift.I64, 3)
+		proto.WriteI32(ctx, 1)
+		proto.WriteI64(ctx, 1)
+		proto.WriteI32(ctx, 2)
+		proto.WriteI64(ctx, 2)
+		proto.WriteI32(ctx, 3)
+		proto.WriteI64(ctx, 3)
+		proto.WriteMapEnd(ctx)
 		var val raw.Map
 		should.NoError(c.Unmarshal(buf.Bytes(), &val))
 

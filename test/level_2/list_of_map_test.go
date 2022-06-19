@@ -1,6 +1,7 @@
 package test
 
 import (
+	"context"
 	"testing"
 
 	"github.com/apache/thrift/lib/go/thrift"
@@ -11,18 +12,19 @@ import (
 
 func Test_skip_list_of_map(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.Combinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteListBegin(thrift.MAP, 2)
-		proto.WriteMapBegin(thrift.I32, thrift.I64, 1)
-		proto.WriteI32(1)
-		proto.WriteI64(1)
-		proto.WriteMapEnd()
-		proto.WriteMapBegin(thrift.I32, thrift.I64, 1)
-		proto.WriteI32(2)
-		proto.WriteI64(2)
-		proto.WriteMapEnd()
-		proto.WriteListEnd()
+		proto.WriteListBegin(ctx, thrift.MAP, 2)
+		proto.WriteMapBegin(ctx, thrift.I32, thrift.I64, 1)
+		proto.WriteI32(ctx, 1)
+		proto.WriteI64(ctx, 1)
+		proto.WriteMapEnd(ctx)
+		proto.WriteMapBegin(ctx, thrift.I32, thrift.I64, 1)
+		proto.WriteI32(ctx, 2)
+		proto.WriteI64(ctx, 2)
+		proto.WriteMapEnd(ctx)
+		proto.WriteListEnd(ctx)
 		iter := c.CreateIterator(buf.Bytes())
 		should.Equal(buf.Bytes(), iter.SkipList(nil))
 	}
@@ -30,18 +32,19 @@ func Test_skip_list_of_map(t *testing.T) {
 
 func Test_unmarshal_general_list_of_map(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.Combinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteListBegin(thrift.MAP, 2)
-		proto.WriteMapBegin(thrift.I32, thrift.I64, 1)
-		proto.WriteI32(1)
-		proto.WriteI64(1)
-		proto.WriteMapEnd()
-		proto.WriteMapBegin(thrift.I32, thrift.I64, 1)
-		proto.WriteI32(2)
-		proto.WriteI64(2)
-		proto.WriteMapEnd()
-		proto.WriteListEnd()
+		proto.WriteListBegin(ctx, thrift.MAP, 2)
+		proto.WriteMapBegin(ctx, thrift.I32, thrift.I64, 1)
+		proto.WriteI32(ctx, 1)
+		proto.WriteI64(ctx, 1)
+		proto.WriteMapEnd(ctx)
+		proto.WriteMapBegin(ctx, thrift.I32, thrift.I64, 1)
+		proto.WriteI32(ctx, 2)
+		proto.WriteI64(ctx, 2)
+		proto.WriteMapEnd(ctx)
+		proto.WriteListEnd(ctx)
 		var val general.List
 		should.NoError(c.Unmarshal(buf.Bytes(), &val))
 		should.Equal(general.Map{
@@ -53,18 +56,19 @@ func Test_unmarshal_general_list_of_map(t *testing.T) {
 
 func Test_unmarshal_list_of_map(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.UnmarshalCombinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteListBegin(thrift.MAP, 2)
-		proto.WriteMapBegin(thrift.I32, thrift.I64, 1)
-		proto.WriteI32(1)
-		proto.WriteI64(1)
-		proto.WriteMapEnd()
-		proto.WriteMapBegin(thrift.I32, thrift.I64, 1)
-		proto.WriteI32(2)
-		proto.WriteI64(2)
-		proto.WriteMapEnd()
-		proto.WriteListEnd()
+		proto.WriteListBegin(ctx, thrift.MAP, 2)
+		proto.WriteMapBegin(ctx, thrift.I32, thrift.I64, 1)
+		proto.WriteI32(ctx, 1)
+		proto.WriteI64(ctx, 1)
+		proto.WriteMapEnd(ctx)
+		proto.WriteMapBegin(ctx, thrift.I32, thrift.I64, 1)
+		proto.WriteI32(ctx, 2)
+		proto.WriteI64(ctx, 2)
+		proto.WriteMapEnd(ctx)
+		proto.WriteListEnd(ctx)
 		var val []map[int32]int64
 		should.NoError(c.Unmarshal(buf.Bytes(), &val))
 		should.Equal([]map[int32]int64{

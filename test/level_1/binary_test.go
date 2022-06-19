@@ -1,6 +1,7 @@
 package test
 
 import (
+	"context"
 	"testing"
 
 	"github.com/jingshouyan/thrifter-go/test"
@@ -9,9 +10,10 @@ import (
 
 func Test_decode_binary(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.Combinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteBinary([]byte("hello"))
+		proto.WriteBinary(ctx, []byte("hello"))
 		iter := c.CreateIterator(buf.Bytes())
 		should.Equal("hello", string(iter.ReadBinary()))
 	}
@@ -19,9 +21,10 @@ func Test_decode_binary(t *testing.T) {
 
 func Test_unmarshal_binary(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.UnmarshalCombinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteBinary([]byte("hello"))
+		proto.WriteBinary(ctx, []byte("hello"))
 		var val []byte
 		should.NoError(c.Unmarshal(buf.Bytes(), &val))
 		should.Equal("hello", string(val))

@@ -1,6 +1,7 @@
 package test
 
 import (
+	"context"
 	"testing"
 
 	"github.com/apache/thrift/lib/go/thrift"
@@ -11,14 +12,15 @@ import (
 
 func Test_skip_map_of_list(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.Combinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteMapBegin(thrift.I64, thrift.LIST, 1)
-		proto.WriteI64(1)
-		proto.WriteListBegin(thrift.I64, 1)
-		proto.WriteI64(1)
-		proto.WriteListEnd()
-		proto.WriteMapEnd()
+		proto.WriteMapBegin(ctx, thrift.I64, thrift.LIST, 1)
+		proto.WriteI64(ctx, 1)
+		proto.WriteListBegin(ctx, thrift.I64, 1)
+		proto.WriteI64(ctx, 1)
+		proto.WriteListEnd(ctx)
+		proto.WriteMapEnd(ctx)
 		iter := c.CreateIterator(buf.Bytes())
 		should.Equal(buf.Bytes(), iter.SkipMap(nil))
 	}
@@ -26,14 +28,15 @@ func Test_skip_map_of_list(t *testing.T) {
 
 func Test_unmarshal_general_map_of_list(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.Combinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteMapBegin(thrift.I64, thrift.LIST, 1)
-		proto.WriteI64(1)
-		proto.WriteListBegin(thrift.I64, 1)
-		proto.WriteI64(1)
-		proto.WriteListEnd()
-		proto.WriteMapEnd()
+		proto.WriteMapBegin(ctx, thrift.I64, thrift.LIST, 1)
+		proto.WriteI64(ctx, 1)
+		proto.WriteListBegin(ctx, thrift.I64, 1)
+		proto.WriteI64(ctx, 1)
+		proto.WriteListEnd(ctx)
+		proto.WriteMapEnd(ctx)
 		var val general.Map
 		should.NoError(c.Unmarshal(buf.Bytes(), &val))
 		should.Equal(general.List{
@@ -44,14 +47,15 @@ func Test_unmarshal_general_map_of_list(t *testing.T) {
 
 func Test_unmarshal_map_of_list(t *testing.T) {
 	should := require.New(t)
+	ctx := context.Background()
 	for _, c := range test.UnmarshalCombinations {
 		buf, proto := c.CreateProtocol()
-		proto.WriteMapBegin(thrift.I64, thrift.LIST, 1)
-		proto.WriteI64(1)
-		proto.WriteListBegin(thrift.I64, 1)
-		proto.WriteI64(1)
-		proto.WriteListEnd()
-		proto.WriteMapEnd()
+		proto.WriteMapBegin(ctx, thrift.I64, thrift.LIST, 1)
+		proto.WriteI64(ctx, 1)
+		proto.WriteListBegin(ctx, thrift.I64, 1)
+		proto.WriteI64(ctx, 1)
+		proto.WriteListEnd(ctx)
+		proto.WriteMapEnd(ctx)
 		var val map[int64][]int64
 		should.NoError(c.Unmarshal(buf.Bytes(), &val))
 		should.Equal(map[int64][]int64{
