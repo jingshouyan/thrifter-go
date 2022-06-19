@@ -16,7 +16,7 @@ Why?
 thrifter mimic the same api.
 
 ```go
-import "github.com/thrift-iterator/go"
+import "github.com/jingshouyan/thrifter-go"
 // marshal to thrift
 thriftEncodedBytes, err := thrifter.Marshal([]int{1, 2, 3})
 // unmarshal back
@@ -27,7 +27,7 @@ err = thrifter.Unmarshal(thriftEncodedBytes, &val)
 even struct data binding is supported
 
 ```go
-import "github.com/thrift-iterator/go"
+import "github.com/jingshouyan/thrifter-go"
 
 type NewOrderRequest struct {
     Lines []NewOrderLine `thrift:",1"`
@@ -56,8 +56,8 @@ you do not need to define IDL. you do not need to use static code generation.
 you do not event need to define struct.
 
 ```go
-import "github.com/thrift-iterator/go"
-import "github.com/thrift-iterator/go/general"
+import "github.com/jingshouyan/thrifter-go"
+import "github.com/jingshouyan/thrifter-go/general"
 
 var msg general.Message
 err := thrifter.Unmarshal(thriftEncodedBytes, &msg)
@@ -93,9 +93,9 @@ thrifter provide option to do partial decoding. You can modify part of the
 message, with untouched parts in `[]byte` form.
 
 ```go
-import "github.com/thrift-iterator/go"
-import "github.com/thrift-iterator/go/protocol"
-import "github.com/thrift-iterator/go/raw"
+import "github.com/jingshouyan/thrifter-go"
+import "github.com/jingshouyan/thrifter-go/protocol"
+import "github.com/jingshouyan/thrifter-go/raw"
 
 // partial decoding
 decoder := thrifter.NewDecoder(reader)
@@ -159,7 +159,7 @@ is unchanged, just need to add extra static codegen in your build steps, and inc
 the generated code in your package. The runtime will automatically use the 
 generated encoder/decoder instead of reflection.
 
-For example of static codegen, checkout [https://github.com/thrift-iterator/go/blob/master/test/api/init.go](https://github.com/thrift-iterator/go/blob/master/test/api/init.go)
+For example of static codegen, checkout [https://github.com/jingshouyan/thrifter-go/blob/master/test/api/init.go](https://github.com/jingshouyan/thrifter-go/blob/master/test/api/init.go)
 
 # Sync IDL and Go Struct
 

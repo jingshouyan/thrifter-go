@@ -1,8 +1,9 @@
 package codegen
 
 import (
-	"github.com/thrift-iterator/go/spi"
 	"reflect"
+
+	"github.com/jingshouyan/thrifter-go/spi"
 )
 
 type Extension struct {

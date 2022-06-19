@@ -1,8 +1,8 @@
 package compact
 
 import (
-	"github.com/thrift-iterator/go/protocol"
-	"github.com/thrift-iterator/go/spi"
+	"github.com/jingshouyan/thrifter-go/protocol"
+	"github.com/jingshouyan/thrifter-go/spi"
 )
 
 func (iter *Iterator) Discard(ttype protocol.TType) {

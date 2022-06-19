@@ -2,9 +2,10 @@ package test
 
 import (
 	"testing"
+
+	"github.com/apache/thrift/lib/go/thrift"
+	"github.com/jingshouyan/thrifter-go/test/api/binding_test"
 	"github.com/stretchr/testify/require"
-	"git.apache.org/thrift.git/lib/go/thrift"
-	"github.com/thrift-iterator/go/test/api/binding_test"
 )
 
 func Test_binding(t *testing.T) {

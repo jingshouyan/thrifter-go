@@ -2,11 +2,12 @@ package test
 
 import (
 	"testing"
+
+	"github.com/apache/thrift/lib/go/thrift"
+	"github.com/jingshouyan/thrifter-go/general"
+	"github.com/jingshouyan/thrifter-go/protocol"
+	"github.com/jingshouyan/thrifter-go/test"
 	"github.com/stretchr/testify/require"
-	"git.apache.org/thrift.git/lib/go/thrift"
-	"github.com/thrift-iterator/go/protocol"
-	"github.com/thrift-iterator/go/test"
-	"github.com/thrift-iterator/go/general"
 )
 
 func Test_skip_message(t *testing.T) {

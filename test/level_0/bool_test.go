@@ -1,9 +1,10 @@
 package test
 
 import (
-	"github.com/stretchr/testify/require"
-	"github.com/thrift-iterator/go/test"
 	"testing"
+
+	"github.com/jingshouyan/thrifter-go/test"
+	"github.com/stretchr/testify/require"
 )
 
 func Test_decode_bool(t *testing.T) {

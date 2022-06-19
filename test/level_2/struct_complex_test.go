@@ -1,10 +1,11 @@
 package test
 
 import (
-	"github.com/stretchr/testify/require"
-	"github.com/thrift-iterator/go/test"
-	"github.com/thrift-iterator/go/test/level_2/struct_complex_test"
 	"testing"
+
+	"github.com/jingshouyan/thrifter-go/test"
+	"github.com/jingshouyan/thrifter-go/test/level_2/struct_complex_test"
+	"github.com/stretchr/testify/require"
 )
 
 func Test_marshal_struct_complex(t *testing.T) {

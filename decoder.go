@@ -1,11 +1,12 @@
 package thrifter
 
 import (
-	"github.com/thrift-iterator/go/general"
-	"github.com/thrift-iterator/go/protocol"
-	"github.com/thrift-iterator/go/spi"
 	"io"
 	"reflect"
+
+	"github.com/jingshouyan/thrifter-go/general"
+	"github.com/jingshouyan/thrifter-go/protocol"
+	"github.com/jingshouyan/thrifter-go/spi"
 )
 
 type Decoder struct {

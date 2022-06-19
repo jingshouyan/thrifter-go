@@ -2,12 +2,13 @@ package test
 
 import (
 	"testing"
+
+	"github.com/apache/thrift/lib/go/thrift"
+	"github.com/jingshouyan/thrifter-go/general"
+	"github.com/jingshouyan/thrifter-go/protocol"
+	"github.com/jingshouyan/thrifter-go/raw"
+	"github.com/jingshouyan/thrifter-go/test"
 	"github.com/stretchr/testify/require"
-	"git.apache.org/thrift.git/lib/go/thrift"
-	"github.com/thrift-iterator/go/protocol"
-	"github.com/thrift-iterator/go/test"
-	"github.com/thrift-iterator/go/general"
-	"github.com/thrift-iterator/go/raw"
 )
 
 func Test_decode_list_by_iterator(t *testing.T) {
@@ -125,7 +126,6 @@ func Test_marshal_general_list(t *testing.T) {
 		should.Equal(uint64(3), iter.ReadUint64())
 	}
 }
-
 
 func Test_marshal_raw_list(t *testing.T) {
 	should := require.New(t)

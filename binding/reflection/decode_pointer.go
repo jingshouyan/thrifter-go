@@ -1,9 +1,10 @@
 package reflection
 
 import (
-	"unsafe"
-	"github.com/thrift-iterator/go/spi"
 	"reflect"
+	"unsafe"
+
+	"github.com/jingshouyan/thrifter-go/spi"
 )
 
 type pointerDecoder struct {

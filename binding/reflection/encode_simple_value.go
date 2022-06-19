@@ -2,8 +2,9 @@ package reflection
 
 import (
 	"unsafe"
-	"github.com/thrift-iterator/go/spi"
-	"github.com/thrift-iterator/go/protocol"
+
+	"github.com/jingshouyan/thrifter-go/protocol"
+	"github.com/jingshouyan/thrifter-go/spi"
 )
 
 type binaryEncoder struct {

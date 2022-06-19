@@ -1,13 +1,14 @@
 package test
 
 import (
-	"testing"
-	"github.com/stretchr/testify/require"
-	"github.com/thrift-iterator/go"
-	"github.com/thrift-iterator/go/general"
 	"fmt"
-	"github.com/thrift-iterator/go/raw"
-	"github.com/thrift-iterator/go/protocol"
+	"testing"
+
+	"github.com/jingshouyan/thrifter-go"
+	"github.com/jingshouyan/thrifter-go/general"
+	"github.com/jingshouyan/thrifter-go/protocol"
+	"github.com/jingshouyan/thrifter-go/raw"
+	"github.com/stretchr/testify/require"
 )
 
 func Test_decode_struct_of_raw_message(t *testing.T) {
@@ -37,7 +38,7 @@ func Test_decode_struct_of_raw_message(t *testing.T) {
 	// set arg0 back
 	rawStruct[protocol.FieldId(0)] = raw.StructField{
 		Buffer: encodedArg0,
-		Type: protocol.TypeMap,
+		Type:   protocol.TypeMap,
 	}
 	encodedArgs, err := api.Marshal(rawStruct)
 	should.NoError(err)

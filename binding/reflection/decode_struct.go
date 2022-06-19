@@ -1,13 +1,14 @@
 package reflection
 
 import (
-	"github.com/thrift-iterator/go/protocol"
 	"unsafe"
-	"github.com/thrift-iterator/go/spi"
+
+	"github.com/jingshouyan/thrifter-go/protocol"
+	"github.com/jingshouyan/thrifter-go/spi"
 )
 
 type structDecoder struct {
-	fields []structDecoderField
+	fields   []structDecoderField
 	fieldMap map[protocol.FieldId]structDecoderField
 }
 
@@ -22,7 +23,7 @@ func (decoder *structDecoder) decode(ptr unsafe.Pointer, iter spi.Iterator) {
 	for _, field := range decoder.fields {
 		fieldType, fieldId := iter.ReadStructField()
 		if field.fieldId == fieldId {
-			field.decoder.decode(unsafe.Pointer(uintptr(ptr) + field.offset), iter)
+			field.decoder.decode(unsafe.Pointer(uintptr(ptr)+field.offset), iter)
 		} else {
 			decoder.decodeByMap(ptr, iter, fieldType, fieldId)
 			return
@@ -40,7 +41,7 @@ func (decoder *structDecoder) decodeByMap(ptr unsafe.Pointer, iter spi.Iterator,
 		}
 		field, isFound := decoder.fieldMap[fieldId]
 		if isFound {
-			field.decoder.decode(unsafe.Pointer(uintptr(ptr) + field.offset), iter)
+			field.decoder.decode(unsafe.Pointer(uintptr(ptr)+field.offset), iter)
 		} else {
 			iter.Discard(fieldType)
 		}

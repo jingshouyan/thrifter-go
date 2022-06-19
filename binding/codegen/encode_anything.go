@@ -2,8 +2,9 @@ package codegen
 
 import (
 	"reflect"
+
+	"github.com/jingshouyan/thrifter-go/protocol"
 	"github.com/v2pro/wombat/generic"
-	"github.com/thrift-iterator/go/protocol"
 )
 
 func dispatchEncode(extension *Extension, srcType reflect.Type) (string, protocol.TType) {
@@ -42,10 +43,10 @@ var encodeAnything = generic.DefineFunc("EncodeAnything(dst DT, src ST)").
 	Param("DT", "the dst type to copy into").
 	Param("ST", "the src type to copy from").
 	Generators(
-	"dispatchEncode", func(extension *Extension, srcType reflect.Type) string {
-		encode, _ := dispatchEncode(extension, srcType)
-		return encode
-	}).
+		"dispatchEncode", func(extension *Extension, srcType reflect.Type) string {
+			encode, _ := dispatchEncode(extension, srcType)
+			return encode
+		}).
 	Source(`
 {{ $tmpl := dispatchEncode .EXT .ST }}
 {{ if eq $tmpl "EncodeByExtension" }}

@@ -1,8 +1,9 @@
 package reflection
 
 import (
-	"github.com/thrift-iterator/go/spi"
 	"unsafe"
+
+	"github.com/jingshouyan/thrifter-go/spi"
 )
 
 type binaryDecoder struct {
@@ -102,4 +103,3 @@ type stringDecoder struct {
 func (decoder *stringDecoder) decode(ptr unsafe.Pointer, iter spi.Iterator) {
 	*(*string)(ptr) = iter.ReadString()
 }
-

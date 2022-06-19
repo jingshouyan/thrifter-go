@@ -2,8 +2,9 @@ package test
 
 import (
 	"testing"
+
+	"github.com/jingshouyan/thrifter-go/test"
 	"github.com/stretchr/testify/require"
-	"github.com/thrift-iterator/go/test"
 )
 
 func Test_decode_uint16(t *testing.T) {

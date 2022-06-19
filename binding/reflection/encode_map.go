@@ -1,10 +1,11 @@
 package reflection
 
 import (
-	"github.com/thrift-iterator/go/protocol"
-	"github.com/thrift-iterator/go/spi"
 	"reflect"
 	"unsafe"
+
+	"github.com/jingshouyan/thrifter-go/protocol"
+	"github.com/jingshouyan/thrifter-go/spi"
 )
 
 type mapEncoder struct {

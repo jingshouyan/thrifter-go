@@ -2,8 +2,9 @@ package spi
 
 import (
 	"io"
-	"github.com/thrift-iterator/go/protocol"
 	"reflect"
+
+	"github.com/jingshouyan/thrifter-go/protocol"
 )
 
 type Iterator interface {

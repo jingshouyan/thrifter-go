@@ -2,8 +2,9 @@ package thrifter
 
 import (
 	"io"
-	"github.com/thrift-iterator/go/spi"
-	"github.com/thrift-iterator/go/general"
+
+	"github.com/jingshouyan/thrifter-go/general"
+	"github.com/jingshouyan/thrifter-go/spi"
 )
 
 type Protocol int
