@@ -1,8 +1,8 @@
 package raw
 
 import (
-	"github.com/jingshouyan/thrifter-go/protocol"
-	"github.com/jingshouyan/thrifter-go/spi"
+	"github.com/jingshouyan/thrifter/protocol"
+	"github.com/jingshouyan/thrifter/spi"
 )
 
 type rawStructDecoder struct {

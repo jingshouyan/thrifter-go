@@ -3,8 +3,8 @@ package thrifter
 import (
 	"io"
 
-	"github.com/jingshouyan/thrifter-go/general"
-	"github.com/jingshouyan/thrifter-go/spi"
+	"github.com/jingshouyan/thrifter/general"
+	"github.com/jingshouyan/thrifter/spi"
 )
 
 type Protocol int

@@ -4,7 +4,7 @@ import (
 	"io"
 	"reflect"
 
-	"github.com/jingshouyan/thrifter-go/protocol"
+	"github.com/jingshouyan/thrifter/protocol"
 )
 
 type Iterator interface {

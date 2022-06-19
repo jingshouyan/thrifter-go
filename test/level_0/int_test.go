@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/jingshouyan/thrifter-go/test"
+	"github.com/jingshouyan/thrifter/test"
 	"github.com/stretchr/testify/require"
 )
 

@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/jingshouyan/thrifter-go"
-	"github.com/jingshouyan/thrifter-go/general"
-	"github.com/jingshouyan/thrifter-go/protocol"
-	"github.com/jingshouyan/thrifter-go/raw"
+	"github.com/jingshouyan/thrifter"
+	"github.com/jingshouyan/thrifter/general"
+	"github.com/jingshouyan/thrifter/protocol"
+	"github.com/jingshouyan/thrifter/raw"
 	"github.com/stretchr/testify/require"
 )
 

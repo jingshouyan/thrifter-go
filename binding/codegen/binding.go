@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/jingshouyan/thrifter-go/protocol"
+	"github.com/jingshouyan/thrifter/protocol"
 )
 
 var byteArrayType = reflect.TypeOf(([]byte)(nil))

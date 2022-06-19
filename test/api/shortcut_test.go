@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/jingshouyan/thrifter-go"
+	"github.com/jingshouyan/thrifter"
 	"github.com/stretchr/testify/require"
 )
 

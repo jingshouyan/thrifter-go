@@ -1,6 +1,6 @@
 package general
 
-import "github.com/jingshouyan/thrifter-go/spi"
+import "github.com/jingshouyan/thrifter/spi"
 
 type generalListDecoder struct {
 }

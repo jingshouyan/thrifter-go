@@ -3,7 +3,7 @@ package codegen
 import (
 	"reflect"
 
-	"github.com/jingshouyan/thrifter-go/protocol"
+	"github.com/jingshouyan/thrifter/protocol"
 	"github.com/v2pro/wombat/generic"
 )
 

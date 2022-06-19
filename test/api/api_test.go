@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/jingshouyan/thrifter-go"
-	"github.com/jingshouyan/thrifter-go/general"
-	"github.com/jingshouyan/thrifter-go/protocol"
+	"github.com/jingshouyan/thrifter"
+	"github.com/jingshouyan/thrifter/general"
+	"github.com/jingshouyan/thrifter/protocol"
 	"github.com/stretchr/testify/require"
 )
 

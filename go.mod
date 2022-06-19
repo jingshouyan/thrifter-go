@@ -1,4 +1,4 @@
-module github.com/jingshouyan/thrifter-go
+module github.com/jingshouyan/thrifter
 
 go 1.18
 

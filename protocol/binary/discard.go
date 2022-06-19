@@ -1,8 +1,8 @@
 package binary
 
 import (
-	"github.com/jingshouyan/thrifter-go/protocol"
-	"github.com/jingshouyan/thrifter-go/spi"
+	"github.com/jingshouyan/thrifter/protocol"
+	"github.com/jingshouyan/thrifter/spi"
 )
 
 func (iter *Iterator) Discard(ttype protocol.TType) {

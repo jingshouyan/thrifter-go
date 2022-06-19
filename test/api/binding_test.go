@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/apache/thrift/lib/go/thrift"
-	"github.com/jingshouyan/thrifter-go/test/api/binding_test"
+	"github.com/jingshouyan/thrifter/test/api/binding_test"
 	"github.com/stretchr/testify/require"
 )
 

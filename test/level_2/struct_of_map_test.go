@@ -5,10 +5,10 @@ import (
 	"testing"
 
 	"github.com/apache/thrift/lib/go/thrift"
-	"github.com/jingshouyan/thrifter-go/general"
-	"github.com/jingshouyan/thrifter-go/protocol"
-	"github.com/jingshouyan/thrifter-go/test"
-	"github.com/jingshouyan/thrifter-go/test/level_2/struct_of_map_test"
+	"github.com/jingshouyan/thrifter/general"
+	"github.com/jingshouyan/thrifter/protocol"
+	"github.com/jingshouyan/thrifter/test"
+	"github.com/jingshouyan/thrifter/test/level_2/struct_of_map_test"
 	"github.com/stretchr/testify/require"
 )
 

@@ -1,7 +1,7 @@
 package raw
 
 import (
-	"github.com/jingshouyan/thrifter-go/spi"
+	"github.com/jingshouyan/thrifter/spi"
 )
 
 type rawListDecoder struct {

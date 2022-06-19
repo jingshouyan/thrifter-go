@@ -1,7 +1,7 @@
 package compact
 
 import (
-	"github.com/jingshouyan/thrifter-go/protocol"
+	"github.com/jingshouyan/thrifter/protocol"
 )
 
 type TCompactType byte

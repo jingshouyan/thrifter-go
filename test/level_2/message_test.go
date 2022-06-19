@@ -5,9 +5,9 @@ import (
 	"testing"
 
 	"github.com/apache/thrift/lib/go/thrift"
-	"github.com/jingshouyan/thrifter-go/general"
-	"github.com/jingshouyan/thrifter-go/protocol"
-	"github.com/jingshouyan/thrifter-go/test"
+	"github.com/jingshouyan/thrifter/general"
+	"github.com/jingshouyan/thrifter/protocol"
+	"github.com/jingshouyan/thrifter/test"
 	"github.com/stretchr/testify/require"
 )
 

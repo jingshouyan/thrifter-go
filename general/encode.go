@@ -3,8 +3,8 @@ package general
 import (
 	"reflect"
 
-	"github.com/jingshouyan/thrifter-go/protocol"
-	"github.com/jingshouyan/thrifter-go/spi"
+	"github.com/jingshouyan/thrifter/protocol"
+	"github.com/jingshouyan/thrifter/spi"
 )
 
 func generalWriterOf(sample interface{}) (protocol.TType, func(val interface{}, stream spi.Stream)) {

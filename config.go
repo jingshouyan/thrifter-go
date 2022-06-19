@@ -7,14 +7,14 @@ import (
 	"reflect"
 	"sync"
 
-	"github.com/jingshouyan/thrifter-go/binding/codegen"
-	"github.com/jingshouyan/thrifter-go/binding/reflection"
-	"github.com/jingshouyan/thrifter-go/general"
-	"github.com/jingshouyan/thrifter-go/protocol"
-	"github.com/jingshouyan/thrifter-go/protocol/binary"
-	"github.com/jingshouyan/thrifter-go/protocol/compact"
-	"github.com/jingshouyan/thrifter-go/raw"
-	"github.com/jingshouyan/thrifter-go/spi"
+	"github.com/jingshouyan/thrifter/binding/codegen"
+	"github.com/jingshouyan/thrifter/binding/reflection"
+	"github.com/jingshouyan/thrifter/general"
+	"github.com/jingshouyan/thrifter/protocol"
+	"github.com/jingshouyan/thrifter/protocol/binary"
+	"github.com/jingshouyan/thrifter/protocol/compact"
+	"github.com/jingshouyan/thrifter/raw"
+	"github.com/jingshouyan/thrifter/spi"
 	"github.com/v2pro/wombat/generic"
 )
 

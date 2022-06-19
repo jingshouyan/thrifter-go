@@ -5,8 +5,8 @@ import (
 	"testing"
 
 	"github.com/apache/thrift/lib/go/thrift"
-	"github.com/jingshouyan/thrifter-go/test"
-	"github.com/jingshouyan/thrifter-go/test/level_2/struct_of_pointer_test"
+	"github.com/jingshouyan/thrifter/test"
+	"github.com/jingshouyan/thrifter/test/level_2/struct_of_pointer_test"
 	"github.com/stretchr/testify/require"
 )
 

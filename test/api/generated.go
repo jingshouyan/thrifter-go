@@ -3,8 +3,8 @@ package test
 import (
 	"reflect"
 
-	"github.com/jingshouyan/thrifter-go/protocol/binary"
-	"github.com/jingshouyan/thrifter-go/test/api/binding_test"
+	"github.com/jingshouyan/thrifter/protocol/binary"
+	"github.com/jingshouyan/thrifter/test/api/binding_test"
 	"github.com/v2pro/wombat/generic"
 )
 

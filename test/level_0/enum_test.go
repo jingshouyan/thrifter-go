@@ -4,8 +4,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/jingshouyan/thrifter-go/test"
-	"github.com/jingshouyan/thrifter-go/test/level_0/enum_test"
+	"github.com/jingshouyan/thrifter/test"
+	"github.com/jingshouyan/thrifter/test/level_0/enum_test"
 	"github.com/stretchr/testify/require"
 )
 

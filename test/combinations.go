@@ -4,8 +4,8 @@ import (
 	"bytes"
 
 	"github.com/apache/thrift/lib/go/thrift"
-	"github.com/jingshouyan/thrifter-go"
-	"github.com/jingshouyan/thrifter-go/spi"
+	"github.com/jingshouyan/thrifter"
+	"github.com/jingshouyan/thrifter/spi"
 )
 
 type Combination struct {

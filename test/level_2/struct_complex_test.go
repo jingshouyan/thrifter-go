@@ -3,8 +3,8 @@ package test
 import (
 	"testing"
 
-	"github.com/jingshouyan/thrifter-go/test"
-	"github.com/jingshouyan/thrifter-go/test/level_2/struct_complex_test"
+	"github.com/jingshouyan/thrifter/test"
+	"github.com/jingshouyan/thrifter/test/level_2/struct_complex_test"
 	"github.com/stretchr/testify/require"
 )
 
